@@ -8,7 +8,8 @@ import Campaign from "./models/Campaign.js";
 import Quest from "./models/Quest.js";
 
 import authRoutes from "./routes/authRoutes.js";
-import campaignRoutes from "./routes/campaignRoutes.js"
+import campaignRoutes from "./routes/campaignRoutes.js";
+import questRoutes from "./routes/questRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/campaigns', campaignRoutes);
+app.use('/api/campaigns/:campaignId/quests', questRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI)

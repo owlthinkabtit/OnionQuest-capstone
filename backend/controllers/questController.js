@@ -21,6 +21,22 @@ export const createQuest = async (req, res) => {
   }
 };
 
+export const updateQuest = async (req, res ) => {
+  try {
+    const quest = await Quest.findById(req.params.id);
+
+    if (!quest) return res.status(404).json({ error: 'Quest not found' });
+
+    if (quest.owner.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ error: 'Not your Quest to change!' });
+    }
+    const updatedQuest = await Quest.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedQuest);
+  } catch(error) {
+    res.status(400).json({ error: 'Failed to update the Quest' });
+  }
+};
+
 export const getCampaignQuests = async (req, res) => {
   try {
     const { campaignId } = req.params;
@@ -28,5 +44,22 @@ export const getCampaignQuests = async (req, res) => {
     res.status(200).json(quests);
   } catch(error) {
     res.status(500).json({ error: 'Failed to fetch Quests' });
+  }
+};
+
+export const deleteQuest = async (req, res) => {
+  try {
+    const quest = await Quest.findById(req.params.id);
+
+    if (!quest) return res.status(404).json({ error: 'Quest not found' });
+
+    if (quest.owner.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ error: 'Not authorized to delete this!' });
+    }
+
+    await quest.deleteOne();
+    res.status(200).json({ message: 'Quest completed and removed from the log.' });
+  } catch(error) {
+    res.status(500).json({ error: 'Delete failed' });
   }
 };
