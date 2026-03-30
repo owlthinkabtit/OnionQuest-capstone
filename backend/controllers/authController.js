@@ -16,7 +16,7 @@ export const register = async (req, res) => {
 
     res.status(201).json({ user: { id: user._id, username: user.username }, token });
   } catch(err) {
-    res.status(400).json({ error: 'That Character name is already taken!' });
+    res.status(400).json({ error: err.message });
   }
 };
 
