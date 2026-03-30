@@ -8,6 +8,7 @@ import Campaign from "./models/Campaign.js";
 import Quest from "./models/Quest.js";
 
 import authRoutes from "./routes/authRoutes.js";
+import campaignRoutes from "./routes/campaignRoutes.js"
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -15,7 +16,9 @@ const PORT = process.env.PORT || 3001
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', authRoutes)
+app.use('/api/auth', authRoutes);
+app.use('/api/campaigns', campaignRoutes);
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to the Onion Quest Database!'))
