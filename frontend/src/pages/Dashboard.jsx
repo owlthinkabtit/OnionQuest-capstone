@@ -50,6 +50,36 @@ function Dashboard() {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to abandon this quest forever?")) {
+      try {
+        await api.delete(`/campaigns/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
+        });
+
+        setCampaigns(campaigns.filter((c) => c._id !== id));
+      } catch (err) {
+        console.error("Failed to delete the scrolls:", err)
+      }
+    }
+  };
+
+  const handleEdit = async (id, currentName) => {
+    const newName = window.prompt("Enter new Campaign Name:", currentName);
+    if (!newName) return;
+
+    try {
+      const response = await api.put(`/campaigns/${id}`,
+        { name: newName },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      );
+
+      setCampaigns(campaigns.map((c) => (c._id === id ? response.data : c)))
+    } catch (err) {
+      console.error("The rewrite failed:", err);
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <h1>Welcome Back, {user?.username}!</h1>
@@ -85,9 +115,18 @@ function Dashboard() {
               <div key={camp._id} className="campaign-card" style={cardStyle}>
                 <h3>{camp.name}</h3>
                 <p>{camp.description}</p>
-                <button onClick={() => console.log("Entering", camp.name)}>
-                  Enter Quest
-                </button>
+
+                <div className="card-actions">
+                  <button onClick={() => console.log("Entering", camp.name)}>
+                    Enter Quest
+                  </button>
+                  <button onClick={() => handleEdit(camp._id, camp.name)} style={{backgroundColor: '#ffcc00' }}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(camp._id)} style={{backgroundColor: '#ff4444', color: 'white' }}>
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           ) : (
