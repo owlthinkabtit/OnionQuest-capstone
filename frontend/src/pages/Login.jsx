@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from '../api/axios';
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 function Login() {
   const [formData, setFormData] = useState({ username: '', password: ''});
@@ -37,6 +37,12 @@ function Login() {
         />
         <button type="submit">Enter the Realm</button>
       </form>
+      <div className="auth-options">
+        <p>New to the Realm?</p>
+        <Link title="Go to Register" to="/register">
+          <button type="button">Create an Account</button>
+        </Link>
+      </div>
     </div>
   );
 }

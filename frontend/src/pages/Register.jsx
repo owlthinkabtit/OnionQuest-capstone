@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../api/axios";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -19,30 +19,42 @@ function Register() {
 
       navigate("/dashboard");
     } catch (err) {
-      setError("That Hero's name is already taken or something went wrong!");
+      const errorMessage = err.response?.data?.error || "The Gatekeeper is blocked. Try again";
+      setError(errorMessage);
+      console.log("Full Error Object:", err.response?.data);
     }
   }
 
   return (
     <div className="auth-container">
       <h2>Join the Quest</h2>
-      { error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input  
+        <input
           type="text"
           placeholder="Choose Username"
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          value={formData.username}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
         />
         <input
           type="password"
-          placeholder="choose Password"
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          placeholder="Choose Password"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
         />
         <button type="submit">Create Hero</button>
       </form>
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+      <div className="auth-options">
+        <p>
+          Already have an account? <Link to="/login">Login here</Link>
+        </p>
+      </div>
     </div>
   );
 }
 
-export default Register
+export default Register;

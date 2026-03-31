@@ -4,6 +4,7 @@ import { AuthContext } from "./context/AuthContext";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
 
 function App() {
   const { user, loading } = useContext(AuthContext);
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/register" element={<Register />} />
       <Route  
         path="/"
         element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
