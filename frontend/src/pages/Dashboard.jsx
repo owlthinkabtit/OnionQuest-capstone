@@ -1,23 +1,110 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 function Dashboard() {
-  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
+  const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [newCampaign, setNewCampaign] = useState({ name: "", description: ""});
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  useEffect(() => {
+    async function loadCampaigns() {
+      try {
+        const response = await api.get("/campaigns", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setCampaigns(response.data);
+      } catch (err) {
+        console.error("Error fetching campaigns:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadCampaigns();
+  }, []);
+
+  const handleCreateCampaign = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.post("/campaigns", newCampaign, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setCampaigns([...campaigns, response.data]);
+
+      setNewCampaign({ name: "", description: ""});
+    } catch (err) {
+      console.error("The forge failed:", err);
+    }
+  };
+
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Welcome Back, {user?.username}!</h1>
-      <p>Your active Campaigns will appear here.</p>
       <button onClick={handleLogout}>Leave the Realm</button>
+
+      <hr />
+      <section className="create-section">
+        <h2>Forge a New Campaign</h2>
+        <form onSubmit={handleCreateCampaign}>
+          <input
+            type="text"
+            placeholder="Campaign Title"
+            value={newCampaign.name}
+            onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value})}
+            required
+          />
+          <textarea 
+            placeholder="Breif Description"
+            value={newCampaign.description}
+            onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value})}
+          />
+          <button type="submit">Create Campaign</button>
+        </form>
+      </section>
+
+      <h2>Your Active Campaigns</h2>
+      {loading ? (
+        <p>Searching the archives...</p>
+      ) : (
+        <div className="campaign-grid">
+          {campaigns.length > 0 ? (
+            campaigns.map((camp) => (
+              <div key={camp._id} className="campaign-card" style={cardStyle}>
+                <h3>{camp.name}</h3>
+                <p>{camp.description}</p>
+                <button onClick={() => console.log("Entering", camp.name)}>
+                  Enter Quest
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No campaigns found. Your journey begins here, Hero!</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
+
+const cardStyle = {
+  border: "1px solid #ccc",
+  padding: "1rem",
+  margin: "1rem 0",
+  borderRadius: "8px",
+  backgroundColor: "#f9f9f9",
+};
 
 export default Dashboard;
