@@ -10,7 +10,7 @@ export const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       req.user = await User.findById(decoded.id).select('-password');
-      next();
+      return next();
     } catch(error) {
       res.status(401).json({ error: 'Not authorized, magic key failed!' });
     }

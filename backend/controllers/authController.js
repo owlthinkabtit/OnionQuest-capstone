@@ -8,28 +8,30 @@ const createToken = (id) => {
 };
 
 export const register = async (req, res) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
     const user = await User.create({ username, password });
-    const token = createToken(user._id);
 
-    res.status(201).json({ user: { id: user._id, username: user.username }, token });
-  } catch(err) {
+    const token = createToken(user._id);
+    res.status(201).json({ user: { id: user._id, username: user.username }, token});
+  } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
+  console.log("Login Attempt:", username);
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
+      console.log("User not found in DB");
       return res.status(404).json({ error: 'Character not found!' });
     }
 
     const isMatch = await user.comparePassword(password);
+    console.log("Do passwords match?", isMatch);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid credentials!' });
     }
