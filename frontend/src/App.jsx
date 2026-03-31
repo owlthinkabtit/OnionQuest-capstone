@@ -5,6 +5,7 @@ import { AuthContext } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
+import CampaignDetails from "./pages/CampaignDetails";
 
 function App() {
   const { user, loading } = useContext(AuthContext);
@@ -26,6 +27,7 @@ function App() {
         path="/dashboard"
         element={user ? <Dashboard /> : <Navigate to="/login" />}
       />
+      <Route path="/campaign/:id" element={ user ? <CampaignDetails /> : <Navigate to="/" />} />
       
     </Routes>
   )

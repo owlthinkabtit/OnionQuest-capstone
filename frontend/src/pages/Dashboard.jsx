@@ -117,7 +117,7 @@ function Dashboard() {
                 <p>{camp.description}</p>
 
                 <div className="card-actions">
-                  <button onClick={() => console.log("Entering", camp.name)}>
+                  <button onClick={() => navigate(`/campaign/${camp._id}`)}>
                     Enter Quest
                   </button>
                   <button onClick={() => handleEdit(camp._id, camp.name)} style={{backgroundColor: '#ffcc00' }}>
