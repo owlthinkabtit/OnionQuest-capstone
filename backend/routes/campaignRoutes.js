@@ -1,5 +1,5 @@
 import express from "express";
-import { createCampaign, getMyCampaigns, updateCampaign, deleteCampaign } from "../controllers/campaignController.js";
+import { createCampaign, getMyCampaigns, updateCampaign, deleteCampaign, getCampaignById } from "../controllers/campaignController.js";
 import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -11,6 +11,7 @@ router.route('/')
   .get(getMyCampaigns);
 
 router.route('/:id')
+  .get(getCampaignById)
   .put(updateCampaign)
   .delete(deleteCampaign);
   

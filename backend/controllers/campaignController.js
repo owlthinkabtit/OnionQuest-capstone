@@ -30,10 +30,10 @@ export const updateCampaign = async (req, res) => {
 
 export const getMyCampaigns = async (req, res) => {
   try {
-    const campaigns = await Campaign.find({ owner: req.user._id });
+    const campaigns = await Campaign.find({ owner: req.user.id });
     res.status(200).json(campaigns);
   } catch(error) {
-    res.status(500).json({ error: 'Could not find your map!' });
+    res.status(500).json({ error: 'Could not retrieve the campaign scrolls.' });
   }
 };
 
@@ -51,5 +51,23 @@ export const deleteCampaign = async (req, res) => {
     res.status(200).json({ message: 'Campaign deleted from the history books.' });
   } catch(error) {
     res.status(500).json({ error: 'Delete failed' });
+  }
+};
+
+export const getCampaignById = async (req, res) => {
+  try {
+    const campaign = await Campaign.findById(req.params.id);
+
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found.' });
+    }
+
+    if (campaign.owner.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ error: 'This is not your story to read!' });
+    }
+
+    res.status(200).json(campaign);
+  } catch (error) {
+    res.status(500).json({ error: 'Could not retrieve campaign details.' });
   }
 };

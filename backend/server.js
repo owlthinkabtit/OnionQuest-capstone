@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/campaigns', campaignRoutes);
-app.use('/api/campaigns/:campaignId/quests', questRoutes);
+app.use('/api/quests', questRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI)

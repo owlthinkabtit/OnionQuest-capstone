@@ -6,10 +6,10 @@ const router = express.Router({ mergeParams: true });
 
 router.use(protect);
 
-router.route('/')
+router.route('/:campaignId')
   .post(createQuest)
   .get(getCampaignQuests);
-router.route('/:id')
+router.route('/id/:id')
   .put(updateQuest)
   .delete(deleteQuest);
 export default router;

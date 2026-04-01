@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const questSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
     required: true,
     trim: true
