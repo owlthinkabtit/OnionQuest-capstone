@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import quillIcon from "../assets/Quill_Pen.png";
+import flameIcon from "../assets/Flame_Icon.png";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -87,8 +89,8 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <h1>Welcome Back, {user?.username}!</h1>
-      <button onClick={handleLogout}>Leave the Realm</button>
+      <h1 className="wb">Welcome Back, {user?.username}!</h1>
+      <button className="logout-btn" onClick={handleLogout}>Escape Realm</button>
 
       <hr />
       <section className="create-section">
@@ -133,15 +135,17 @@ function Dashboard() {
                   </button>
                   <button
                     onClick={() => handleEdit(camp._id, camp.name)}
-                    style={{ backgroundColor: "#ffcc00" }}
+                    title="Edit Campaign"
+                    className="icon-btn quill-btn"
                   >
-                    Edit
+                    <img src={quillIcon} alt="Quill Icon" />
                   </button>
                   <button
                     onClick={() => handleDelete(camp._id)}
-                    style={{ backgroundColor: "#ff4444", color: "white" }}
+                    title="Delete Campaign (Gone Forever!)"
+                    className="icon-btn flame-btn"
                   >
-                    Delete
+                    <img src={flameIcon} alt="Flame Icon" />
                   </button>
                 </div>
               </div>

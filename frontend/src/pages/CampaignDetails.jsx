@@ -124,10 +124,14 @@ function CampaignDetails() {
           />
           <button type="submit">Forge Quest</button>
         </form>
+
         <div className="quest-list">
           {quests.length > 0 ? (
             quests.map((q) => (
-              <div key={q._id} className="quest-card">
+              <div
+                key={q._id}
+                className={`quest-card ${q.status === "Done" ? "completed" : ""}`}
+              >
                 {editingQuestId === q._id ? (
                   <>
                     <input
@@ -157,9 +161,27 @@ function CampaignDetails() {
                     </button>
                   </>
                 ) : (
+            
                   <>
                     <h4>{q.name}</h4>
                     <p>{q.description}</p>
+
+                    <div className="quest-meta">
+                      <span>
+                        📜 Embarked:{" "}
+                        {q.createdAt
+                          ? new Date(q.createdAt).toLocaleDateString()
+                          : "Unknown"}
+                      </span>
+                      {q.status === "Done" && q.updatedAt && (
+                        <span className="complete-date">
+                          {" "}
+                          | ✅ Completed:{" "}
+                          {new Date(q.updatedAt).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
+
                     <label>Status: </label>
                     <select
                       value={q.status}
@@ -171,18 +193,21 @@ function CampaignDetails() {
                       <option value="In Progress">In Progress</option>
                       <option value="Done">Done</option>
                     </select>
+
                     <button
                       onClick={() => {
                         setEditingQuestId(q._id);
-                        setEditFormData({ name: q.name, description: q.description });
+                        setEditFormData({
+                          name: q.name,
+                          description: q.description,
+                        });
                       }}
                     >
                       Edit Details
                     </button>
-                    <button
-                      onClick={() => handleDeleteQuest(q._id)}
-                    >
-                      Done
+
+                    <button onClick={() => handleStatusChange(q._id, "Done")}>
+                      Quest Complete!
                     </button>
                   </>
                 )}
@@ -196,6 +221,5 @@ function CampaignDetails() {
     </div>
   );
 }
-
 
 export default CampaignDetails;
