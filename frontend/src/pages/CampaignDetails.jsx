@@ -2,11 +2,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../api/axios";
 
-function CampaignDetails () {
+function CampaignDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [campaign, setCampaign] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
    async function fetchDetails() {
@@ -25,7 +26,7 @@ function CampaignDetails () {
   }, [id]);
 
   if (loading) return <p>Consulting the map...</p>;
-  if (!loading) return <p>Campaign not found.</p>;
+  if (!campaign) return <p>Campaign not found.</p>;
 
   return (
     <div className="details-container">
