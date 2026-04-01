@@ -8,7 +8,7 @@ function Dashboard() {
   const { user, logout } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newCampaign, setNewCampaign] = useState({ name: "", description: ""});
+  const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
 
   const handleLogout = () => {
     logout();
@@ -39,27 +39,29 @@ function Dashboard() {
     try {
       const response = await api.post("/campaigns", newCampaign, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       setCampaigns([...campaigns, response.data]);
 
-      setNewCampaign({ name: "", description: ""});
+      setNewCampaign({ name: "", description: "" });
     } catch (err) {
       console.error("The forge failed:", err);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to abandon this quest forever?")) {
+    if (
+      window.confirm("Are you sure you want to abandon this quest forever?")
+    ) {
       try {
         await api.delete(`/campaigns/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 
         setCampaigns(campaigns.filter((c) => c._id !== id));
       } catch (err) {
-        console.error("Failed to delete the scrolls:", err)
+        console.error("Failed to delete the scrolls:", err);
       }
     }
   };
@@ -69,12 +71,15 @@ function Dashboard() {
     if (!newName) return;
 
     try {
-      const response = await api.put(`/campaigns/${id}`,
+      const response = await api.put(
+        `/campaigns/${id}`,
         { name: newName },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
       );
 
-      setCampaigns(campaigns.map((c) => (c._id === id ? response.data : c)))
+      setCampaigns(campaigns.map((c) => (c._id === id ? response.data : c)));
     } catch (err) {
       console.error("The rewrite failed:", err);
     }
@@ -88,18 +93,24 @@ function Dashboard() {
       <hr />
       <section className="create-section">
         <h2>Forge a New Campaign</h2>
-        <form onSubmit={handleCreateCampaign}>
+        <form onSubmit={handleCreateCampaign} className="quest-forge-form">
           <input
+            className="quest-input-area" 
             type="text"
             placeholder="Campaign Title"
             value={newCampaign.name}
-            onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value})}
+            onChange={(e) =>
+              setNewCampaign({ ...newCampaign, name: e.target.value })
+            }
             required
           />
-          <textarea 
-            placeholder="Breif Description"
+          <textarea
+            className="quest-input-area"
+            placeholder="Brief Description"
             value={newCampaign.description}
-            onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value})}
+            onChange={(e) =>
+              setNewCampaign({ ...newCampaign, description: e.target.value })
+            }
           />
           <button type="submit">Create Campaign</button>
         </form>
@@ -109,10 +120,10 @@ function Dashboard() {
       {loading ? (
         <p>Searching the archives...</p>
       ) : (
-        <div className="campaign-grid">
+        <div className="campaign-list">
           {campaigns.length > 0 ? (
             campaigns.map((camp) => (
-              <div key={camp._id} className="campaign-card" style={cardStyle}>
+              <div key={camp._id} className="campaign-card">
                 <h3>{camp.name}</h3>
                 <p>{camp.description}</p>
 
@@ -120,10 +131,16 @@ function Dashboard() {
                   <button onClick={() => navigate(`/campaign/${camp._id}`)}>
                     Enter Quest
                   </button>
-                  <button onClick={() => handleEdit(camp._id, camp.name)} style={{backgroundColor: '#ffcc00' }}>
+                  <button
+                    onClick={() => handleEdit(camp._id, camp.name)}
+                    style={{ backgroundColor: "#ffcc00" }}
+                  >
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(camp._id)} style={{backgroundColor: '#ff4444', color: 'white' }}>
+                  <button
+                    onClick={() => handleDelete(camp._id)}
+                    style={{ backgroundColor: "#ff4444", color: "white" }}
+                  >
                     Delete
                   </button>
                 </div>
@@ -137,13 +154,5 @@ function Dashboard() {
     </div>
   );
 }
-
-const cardStyle = {
-  border: "1px solid #ccc",
-  padding: "1rem",
-  margin: "1rem 0",
-  borderRadius: "8px",
-  backgroundColor: "#f9f9f9",
-};
 
 export default Dashboard;

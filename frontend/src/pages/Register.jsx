@@ -26,11 +26,14 @@ function Register() {
   }
 
   return (
-    <div className="auth-container">
-      <h2>Join the Quest</h2>
+    <div className="login-container">
+      <div className="hero-section">
+        <h1>Join the Guild</h1>
+      </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="auth-form">
         <input
+          className="quest-input-area"
           type="text"
           placeholder="Choose Username"
           value={formData.username}
@@ -39,6 +42,7 @@ function Register() {
           }
         />
         <input
+          className="quest-input-area"
           type="password"
           placeholder="Choose Password"
           value={formData.password}
@@ -46,7 +50,7 @@ function Register() {
             setFormData({ ...formData, password: e.target.value })
           }
         />
-        <button type="submit">Create Hero</button>
+        <button type="submit">Begin Your Journey</button>
       </form>
       <div className="auth-options">
         <p>
