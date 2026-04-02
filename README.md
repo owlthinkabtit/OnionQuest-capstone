@@ -72,3 +72,10 @@ cd capstone
 * Leveling System: Earn XP for every quest completed
 * Inventory: Unlock items or badges for finishing large campaigns
 * Guilds: Share campaigns with other Heroes for Co-op productivity
+
+---
+### CREDITS
+
+Pixel art icons within the UI are all from https://pixelrepo.com/
+Homepage background image is from @Hommet_ on Reddit https://www.reddit.com/r/PixelArt/comments/gs7qvy/cozy_forest_home_animation/
+Color Palette inspo is from https://www.media.io/color-palette/woodland-color-palette.html
