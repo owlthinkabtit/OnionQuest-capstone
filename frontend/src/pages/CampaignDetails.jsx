@@ -18,14 +18,10 @@ function CampaignDetails() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const campRes = await api.get(`/campaigns/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const campRes = await api.get(`/campaigns/${id}`);
         setCampaign(campRes.data);
 
-        const questRes = await api.get(`/quests/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const questRes = await api.get(`/quests/${id}`);
         setQuests(questRes.data);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -40,10 +36,15 @@ function CampaignDetails() {
     e.preventDefault();
     console.log("Attempting to forge quest for campaign:", id); // 🔦 Log 1
     console.log("New Quest Data:", newQuest); // 🔦 Log 2
+
+    const questPayLoad = {
+      name: newQuest.name,
+      description: newQuest.description,
+      status: "To Do"
+    };
+
     try {
-      const response = await api.post(`/quests/${id}`, newQuest, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const response = await api.post(`/quests/${id}`, questPayLoad);
       setQuests([...quests, response.data]);
       setNewQuest({ name: "", description: "" });
     } catch (err) {
@@ -56,9 +57,6 @@ function CampaignDetails() {
       const response = await api.put(
         `/quests/id/${questId}`,
         { status: newStatus },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        },
       );
 
       setQuests(quests.map((q) => (q._id === questId ? response.data : q)));
@@ -71,9 +69,7 @@ function CampaignDetails() {
     if (!window.confirm("Are you sure this quest is gone forever?")) return;
 
     try {
-      await api.delete(`/quests/id/${questId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      await api.delete(`/quests/id/${questId}`);
 
       setQuests(quests.filter((q) => q._id !== questId));
     } catch (err) {
@@ -83,9 +79,7 @@ function CampaignDetails() {
 
   const handleUpdateQuest = async (questId) => {
     try {
-      const response = await api.put(`/quests/id/${questId}`, editFormData, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const response = await api.put(`/quests/id/${questId}`, editFormData);
 
       setQuests(quests.map((q) => (q._id === questId ? response.data : q)));
       setEditingQuestId(null);

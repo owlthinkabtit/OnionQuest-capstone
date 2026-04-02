@@ -57,9 +57,7 @@ function Dashboard() {
       window.confirm("Are you sure you want to abandon this quest forever?")
     ) {
       try {
-        await api.delete(`/campaigns/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        await api.delete(`/campaigns/${id}`);
 
         setCampaigns(campaigns.filter((c) => c._id !== id));
       } catch (err) {
@@ -76,9 +74,6 @@ function Dashboard() {
       const response = await api.put(
         `/campaigns/${id}`,
         { name: newName },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        },
       );
 
       setCampaigns(campaigns.map((c) => (c._id === id ? response.data : c)));
