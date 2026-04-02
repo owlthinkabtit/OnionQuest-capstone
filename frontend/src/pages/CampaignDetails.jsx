@@ -153,15 +153,28 @@ function CampaignDetails() {
                         })
                       }
                     />
-                    <button onClick={() => handleUpdateQuest(q._id)}>
+                    <button
+                      className="save-btn"
+                      onClick={() => handleUpdateQuest(q._id)}
+                    >
                       Save Changes
                     </button>
-                    <button onClick={() => setEditingQuestId(null)}>
-                      Cancel
-                    </button>
+                    <div className="edit-actions-row">
+                      <button
+                        className="cancel-btn"
+                        onClick={() => setEditingQuestId(null)}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteQuest(q._id)}
+                      >
+                        Abandon Quest
+                      </button>
+                    </div>
                   </>
                 ) : (
-            
                   <>
                     <h4>{q.name}</h4>
                     <p>{q.description}</p>

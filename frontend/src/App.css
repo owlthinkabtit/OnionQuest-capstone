@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+:root {
+  --forest-dark: #2d2f2b;
+  --forest-mid: #5c6b5d;
+  --moss-green: #8c9a7a;
+  --parchment: #c9c2b4;
+  --earth-brown: #8a7a63;
+  --accent-action: #5c6b5d;
+}
 
 #root {
   width: 100%;
@@ -11,7 +19,8 @@ body {
   margin: 0;
   align-items: flex-start;
   min-height: 100vh;
-  background-color: #f4e4bc;
+  background-color: var(--parchment);
+  color: var(--forest-dark);
   overflow-x: hidden;
   
 }
@@ -20,7 +29,7 @@ h2 {
   font-family: "Jersey 25", sans-serif;
   font-size: 2.5rem; 
   text-align: center; 
-  color: #431195; 
+  color: #284235; 
   margin-top: 30px;
   margin-bottom: 20px;
   text-shadow: none; 
@@ -48,9 +57,10 @@ h2 {
 
 .hero-section h1 {
   font-size: 5rem; 
-  color: #7c3aed;
+  /* color: var(--forest-mid); */
+  color: #93a58e;
   margin-bottom: 5px;
-  text-shadow: 4px 4px 0px orange; 
+  text-shadow: 4px 4px 0px rgb(59, 39, 2); 
 }
 
 
@@ -72,7 +82,7 @@ h2 {
   max-width: 350px; 
   background: rgba(255, 255, 255, 0.9); 
   backdrop-filter: blur(5px);
-  border: 3px solid #7c3aed;
+  border: 3px solid var(--forest-dark);
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -86,7 +96,7 @@ h2 {
 }
 
 .auth-options a {
-  color: #7c3aed;
+  color: #9ce48a;
   font-weight: bold;
   text-decoration: none;
 }
@@ -95,8 +105,12 @@ h2 {
   text-decoration: underline;
 }
 
+.auth-options p {
+  color: #ffffff;
+}
+
 .auth-options button {
-  background-color: #646cff;
+  background-color: var(--moss-green);
   color: white;
   cursor: pointer;
 }
@@ -115,14 +129,15 @@ h2 {
 
 .wb {
   font-size: 3rem; 
-  color: #7c3aed;
-  text-shadow: 4px 4px 0px rgb(242, 228, 201); 
+  color: var(--forest-mid);
+  text-shadow: 4px 4px 0px #351f29;
 }
 
 .dashboard-container, .details-container {
   max-width: 900px; 
   margin: 40px auto; 
-  background-color: #e9c699;
+  /* background-color: #e9c699; */
+  background-color: var(--earth-brown);
   padding: 40px;
   min-height: 90vh;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
@@ -131,8 +146,7 @@ h2 {
 }
 
 .create-section {
-  background-color: #fff;
-  border: 1px solid #dcdcdc;
+  background-color: var(--moss-green);
   border-radius: 12px;
   padding: 30px;
   margin-bottom: 40px;
@@ -147,10 +161,9 @@ h2 {
 }
 
 .quest-card, .campaign-card {
-  background-color: #ffffff;
-  background: rgba(255, 255, 255, 0.9);
+  background-color: #e6e2d3;
   backdrop-filter: blur(5px);
-  border: 3px solid #7c3aed; 
+  border: 3px solid var(--earth-brown); 
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -163,7 +176,7 @@ h2 {
 .quest-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-color: #6366f1; 
+  border-color: #2f5838; 
 }
 
 .quest-card input, .quest-card textarea {
@@ -184,9 +197,9 @@ h2 {
 
 button {
   cursor: pointer;
-  background-color: #7c3aed; 
-  color: white;
-  border: none;
+  background-color: var(--moss-green);
+  color: var(--forest-dark);
+  border: 2px solid var(--forest-dark);
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: 600;
@@ -194,7 +207,8 @@ button {
 }
 
 button:hover {
-  background-color: #6d28d9;
+  background-color: var(--forest-mid);
+  color: white;
 }
 
 button.delete-btn {
@@ -235,6 +249,8 @@ button.delete-btn {
   transform: scale(1.05);
 }
 
+/* QUEST FORMS AND ACTIONS */
+
 .quest-input-area {
   width: 100%;
   min-height: 120px;
@@ -250,7 +266,7 @@ button.delete-btn {
 }
 
 .quest-input-area:focus {
-  border-color: #7c3aed;
+  border-color: var(--forest-mid);
   box-shadow: 0 0 8px rgba(124, 58,237, 0.2);
   outline: none;
 }
@@ -285,6 +301,31 @@ input.quest-input-area {
 
 textarea.quest-input-area {
   min-height: 120px;
+}
+
+.edit-actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background-color: var(--moss-green);
+  color: var(--forest-dark);
+  width: 100%;
+}
+
+.cancel-btn {
+  background-color: var(--parchment);
+  color: var(--forest-dark);
+  flex: 1;
+}
+
+.delete-btn {
+  background-color: #a64d4d;
+  color: white;
+  flex: 1;
+
 }
 
 /* ANIMATIONS */
