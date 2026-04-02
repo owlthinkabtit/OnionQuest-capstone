@@ -4,7 +4,7 @@ import api from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "", email: ""});
   const [error, setError] = useState("");
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -48,6 +48,15 @@ function Register() {
           value={formData.password}
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
+          }
+        />
+        <input
+          className="quest-input-area"
+          type="email"
+          placeholder="john@example.com"
+          value={formData.email}
+          onChange={(e) =>
+            setFormData({ ...formData, email: e.target.value })
           }
         />
         <button type="submit">Begin Your Journey</button>
