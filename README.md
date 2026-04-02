@@ -1,7 +1,12 @@
 ## Onion Quest: A fantasy-themed task management application
 Author: Jameka Haggins
 
-A fantasy-themed task management application built with the MERN stack. Users (Heroes) can manage their Tasks (Quests) across different Projects (Campaigns) with a secure, RPG-style interface.
+Onion Quest is a fantasy-themed, full-stack task management application designed for productivity-focused "Heroes." Built using the MERN stack (MongoDB, Express, React, Node.js), it transforms mundane project management into an immersive campaign experience.
+
+In this realm, users don't just manage "projects" and "tasks"—they embark on Campaigns and forge Quests. The application features a secure authentication system where every Hero has their own private "Guild Hall" to track their progress.
+
+
+<img width="1916" height="978" alt="Screenshot 2026-04-02 114315" src="https://github.com/user-attachments/assets/15bc7fdb-7dc9-4ab5-924c-350eac7bffea" />
 
 ---
 ### Technologies Used 
@@ -75,7 +80,6 @@ cd capstone
 
 ---
 ### CREDITS
-
-Pixel art icons within the UI are all from https://pixelrepo.com/
-Homepage background image is from @Hommet_ on Reddit https://www.reddit.com/r/PixelArt/comments/gs7qvy/cozy_forest_home_animation/
-Color Palette inspo is from https://www.media.io/color-palette/woodland-color-palette.html
+* Pixel art icons within the UI are all from https://pixelrepo.com/
+* Homepage background image is from @Hommet_ on Reddit https://www.reddit.com/r/PixelArt/comments/gs7qvy/cozy_forest_home_animation/
+* Color Palette inspo is from https://www.media.io/color-palette/woodland-color-palette.html
