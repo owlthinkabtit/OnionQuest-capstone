@@ -35,6 +35,24 @@ h2 {
   text-shadow: none; 
 }
 
+.navbar {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 0.5rem 2rem;
+ background-color: var(--forest-mid);
+ border-bottom: 2px solid #3b2702;
+}
+
+.nav-logo a {
+  font-size: 2.5rem;
+  color: #93a58e !important; 
+  text-shadow: 3px 3px 0px rgb(59, 39, 2);
+  text-decoration: none;
+  font-family: inherit;
+  margin: 0;
+}
+
 /* FRONT PAGE */
 
 .login-container {
@@ -134,11 +152,11 @@ h2 {
 }
 
 .dashboard-container, .details-container {
-  max-width: 900px; 
-  margin: 40px auto; 
+  max-width: 1200px; 
+  margin: 0px auto; 
   /* background-color: #e9c699; */
   background-color: var(--earth-brown);
-  padding: 40px;
+  padding: 80px;
   min-height: 90vh;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
