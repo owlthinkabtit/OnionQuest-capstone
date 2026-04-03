@@ -7,12 +7,13 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import CampaignDetails from "./pages/CampaignDetails";
 import Navbar from "./components/Navbar";
+import Spinner from "./components/Spinner";
 
 function App() {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <div>Loading the Realm...</div>;
+    return <Spinner />
   }
 
   return (
