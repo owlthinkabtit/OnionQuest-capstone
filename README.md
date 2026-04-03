@@ -1,6 +1,8 @@
 ## Onion Quest: A fantasy-themed task management application
 Author: Jameka Haggins
 
+[Live site: https://onionquest.netlify.app/login ]
+
 Onion Quest is a fantasy-themed, full-stack task management application designed for productivity-focused "Heroes." Built using the MERN stack (MongoDB, Express, React, Node.js), it transforms mundane project management into an immersive campaign experience.
 
 In this realm, users don't just manage "projects" and "tasks"—they embark on Campaigns and forge Quests. The application features a secure authentication system where every Hero has their own private "Guild Hall" to track their progress.
