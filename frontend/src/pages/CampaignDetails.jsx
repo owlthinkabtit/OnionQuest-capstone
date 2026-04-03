@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../api/axios";
+import QuestCard from "../components/QuestCard";
 
 function CampaignDetails() {
   const { id } = useParams();
@@ -40,7 +41,7 @@ function CampaignDetails() {
     const questPayLoad = {
       name: newQuest.name,
       description: newQuest.description,
-      status: "To Do"
+      status: "To Do",
     };
 
     try {
@@ -54,10 +55,9 @@ function CampaignDetails() {
 
   const handleStatusChange = async (questId, newStatus) => {
     try {
-      const response = await api.put(
-        `/quests/id/${questId}`,
-        { status: newStatus },
-      );
+      const response = await api.put(`/quests/id/${questId}`, {
+        status: newStatus,
+      });
 
       setQuests(quests.map((q) => (q._id === questId ? response.data : q)));
     } catch (err) {
@@ -118,107 +118,20 @@ function CampaignDetails() {
           />
           <button type="submit">Forge Quest</button>
         </form>
-
         <div className="quest-list">
           {quests.length > 0 ? (
             quests.map((q) => (
-              <div
+              <QuestCard
                 key={q._id}
-                className={`quest-card ${q.status === "Done" ? "completed" : ""}`}
-              >
-                {editingQuestId === q._id ? (
-                  <>
-                    <input
-                      value={editFormData.name}
-                      onChange={(e) =>
-                        setEditFormData({
-                          ...editFormData,
-                          name: e.target.value,
-                        })
-                      }
-                    />
-                    <textarea
-                      className="quest-input-area"
-                      value={editFormData.description}
-                      onChange={(e) =>
-                        setEditFormData({
-                          ...editFormData,
-                          description: e.target.value,
-                        })
-                      }
-                    />
-                    <button
-                      className="save-btn"
-                      onClick={() => handleUpdateQuest(q._id)}
-                    >
-                      Save Changes
-                    </button>
-                    <div className="edit-actions-row">
-                      <button
-                        className="cancel-btn"
-                        onClick={() => setEditingQuestId(null)}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDeleteQuest(q._id)}
-                      >
-                        Abandon Quest
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <h4>{q.name}</h4>
-                    <p>{q.description}</p>
-
-                    <div className="quest-meta">
-                      <span>
-                        📜 Embarked:{" "}
-                        {q.createdAt
-                          ? new Date(q.createdAt).toLocaleDateString()
-                          : "Unknown"}
-                      </span>
-                      {q.status === "Done" && q.updatedAt && (
-                        <span className="complete-date">
-                          {" "}
-                          | ✅ Completed:{" "}
-                          {new Date(q.updatedAt).toLocaleDateString()}
-                        </span>
-                      )}
-                    </div>
-
-                    <label>Status: </label>
-                    <select
-                      value={q.status}
-                      onChange={(e) =>
-                        handleStatusChange(q._id, e.target.value)
-                      }
-                    >
-                      <option value="To Do">To Do</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Done">Done</option>
-                    </select>
-
-                    <button
-                      onClick={() => {
-                        setEditingQuestId(q._id);
-                        setEditFormData({
-                          name: q.name,
-                          description: q.description,
-                        });
-                      }}
-                    >
-                      Edit Details
-                    </button>
-
-                    <button onClick={() => handleStatusChange(q._id, "Done")}>
-                      Quest Complete!
-                    </button>
-                  </>
-                )}
-              </div>
+                q={q}
+                editingQuestId={editingQuestId}
+                editFormData={editFormData}
+                setEditFormData={setEditFormData}
+                setEditingQuestId={setEditingQuestId}
+                handleUpdateQuest={handleUpdateQuest}
+                handleStatusChange={handleStatusChange}
+                handleDeleteQuest={handleDeleteQuest}
+              />
             ))
           ) : (
             <p>No quests in the log yet. Start a new one above!</p>
