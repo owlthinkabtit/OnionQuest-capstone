@@ -154,10 +154,10 @@ h2 {
 .dashboard-container, .details-container {
   max-width: 1200px; 
   margin: 0px auto; 
-  /* background-color: #e9c699; */
   background-color: var(--earth-brown);
-  padding: 80px;
+  padding: 20px;
   min-height: 90vh;
+  box-sizing: border-box;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   position: relative; 
@@ -172,7 +172,7 @@ h2 {
 
 .quest-list, .campaign-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px 0;
   align-items: start;
@@ -297,6 +297,10 @@ button.delete-btn {
   flex-direction: column;
   gap: 12px;
   border: 1px dashed #94a3b8;
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .quest-meta {
@@ -371,3 +375,45 @@ textarea.quest-input-area {
   animation: slide-in 0.4s ease-out;
 }
 
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 3rem;
+  }
+
+  .quest-forge-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quest-input-area {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .quest-list {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-card {
+    padding: 15px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .details-container, 
+  .dashboard-container,
+  .login-container,
+  .register-container {
+    padding: 0 20px; 
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .auth-form {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}
