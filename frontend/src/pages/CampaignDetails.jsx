@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../api/axios";
 import QuestCard from "../components/QuestCard";
+import Spinner from "../components/Spinner";
 
 function CampaignDetails() {
   const { id } = useParams();
@@ -35,8 +36,6 @@ function CampaignDetails() {
 
   const handleCreateQuest = async (e) => {
     e.preventDefault();
-    console.log("Attempting to forge quest for campaign:", id); // 🔦 Log 1
-    console.log("New Quest Data:", newQuest); // 🔦 Log 2
 
     const questPayLoad = {
       name: newQuest.name,
@@ -88,8 +87,9 @@ function CampaignDetails() {
     }
   };
 
-  if (loading) return <p>Consulting the map...</p>;
-  if (!campaign) return <p>Campaign not found.</p>;
+  if (loading) return <Spinner />
+
+  if (!campaign) return <Spinner />
 
   return (
     <div className="details-container">

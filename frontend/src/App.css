@@ -53,6 +53,26 @@ h2 {
   margin: 0;
 }
 
+.loader {
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid #93a58e; 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; 
+  text-align: center;
+  color: #2c3e50;
+}
+
 /* FRONT PAGE */
 
 .login-container {
@@ -305,7 +325,7 @@ button.delete-btn {
 
 .quest-meta {
   font-size: 0.85rem;
-  color: #5d4037; /* Dark wood brown */
+  color: #5d4037; 
   margin: 10px 0;
   font-style: italic;
   border-top: 1px dashed rgba(0,0,0,0.1);

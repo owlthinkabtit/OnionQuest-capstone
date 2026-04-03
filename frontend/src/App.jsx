@@ -18,25 +18,24 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/"
-          element={
-            user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
-          }
-        />
-
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/campaign/:id"
-          element={user ? <CampaignDetails /> : <Navigate to="/" />}
-        />
-      </Routes>
+      <>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={user ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/campaign/:id"
+            element={user ? <CampaignDetails /> : <Navigate to="/" />}
+          />
+        </Routes>
+      </>
     </>
   );
 }
